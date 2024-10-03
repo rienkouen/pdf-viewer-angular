@@ -292,29 +292,28 @@
     document.addEventListener('mousemove', function(e) {
         if (!isResizing) return;
 
-        // Calculate the change in size
+       
         var dx = e.clientX - startX;
         var dy = e.clientY - startY;
 
-        // Calculate the new size by taking the larger change
-        var newSize = Math.max(startWidth + Math.max(dx, dy), cmToPx(0.5)); // Ensure it doesn't go below 0.5 cm
+       
+        var newSize = Math.max(startWidth + Math.max(dx, dy), cmToPx(0.5));
 
-        // Get the page dimensions and the square's current position
+   
         var pageRect = pageDiv.getBoundingClientRect();
         var squareRect = square.getBoundingClientRect();
 
-        // Calculate the maximum size allowed based on the square's current position
         var maxSizeWidth = pageRect.width - (squareRect.left - pageRect.left);
         var maxSizeHeight = pageRect.height - (squareRect.top - pageRect.top);
 
-        // Ensure the square does not exceed the maximum dimensions allowed
+       
         newSize = Math.min(newSize, Math.min(maxSizeWidth, maxSizeHeight));
 
-        // Apply the new size to the square (make sure it stays square)
+     
         square.style.width = newSize + 'px';
         square.style.height = newSize + 'px';
 
-        // Update the positions of all middle squares if necessary
+ 
         if (pageNum > 1 && pageNum < pdfDoc.numPages) {
             updateAllMiddleSquares(square.offsetLeft, square.offsetTop, newSize, newSize);
         }
