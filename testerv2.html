@@ -291,34 +291,32 @@
 
     document.addEventListener('mousemove', function(e) {
         if (!isResizing) return;
-
-       
+        
         var dx = e.clientX - startX;
         var dy = e.clientY - startY;
-
-       
-        var newSize = Math.max(startWidth + Math.max(dx, dy), cmToPx(0.5));
-
-   
+     
+        var newSize = Math.max(startWidth + Math.max(dx, dy), cmToPx(0.5)); 
+        
         var pageRect = pageDiv.getBoundingClientRect();
         var squareRect = square.getBoundingClientRect();
+
 
         var maxSizeWidth = pageRect.width - (squareRect.left - pageRect.left);
         var maxSizeHeight = pageRect.height - (squareRect.top - pageRect.top);
 
-       
+
         newSize = Math.min(newSize, Math.min(maxSizeWidth, maxSizeHeight));
 
-     
+
         square.style.width = newSize + 'px';
         square.style.height = newSize + 'px';
 
- 
+
         if (pageNum > 1 && pageNum < pdfDoc.numPages) {
             updateAllMiddleSquares(square.offsetLeft, square.offsetTop, newSize, newSize);
         }
 
-        updatePositions();  // Update the positions after resizing
+        updatePositions();
         scope.$apply();
     });
 
